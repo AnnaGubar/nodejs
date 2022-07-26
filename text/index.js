@@ -1,7 +1,7 @@
 const fs = require("fs/promises");
 // const fs = require("fs").promises;
 
-//* запуск `node files`
+//* запуск ⌨ `node text`
 
 const fileOperation = async(filePath, action = "read", data = "") => {
     switch(action){
@@ -20,7 +20,7 @@ const fileOperation = async(filePath, action = "read", data = "") => {
     }
 }
 
-fileOperation("files/file.txt");
+fileOperation("text/file.txt");
 // fileOperation("files/file.txt", "add", "\nfffffff");
 // fileOperation("files/file.txt", "replace", "Не плюйся - никто не носит золота во рту");
 

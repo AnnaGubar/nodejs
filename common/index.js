@@ -1,1 +1,3 @@
-console.log('1 index')
+//* ⌨  node common
+
+console.log('1 index');
