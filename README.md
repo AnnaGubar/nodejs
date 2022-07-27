@@ -1,5 +1,7 @@
 [Где используется работа с файлами в Node.js](./slides/work-with-files-examples.png)
 
+### конспект https://drive.google.com/file/d/1Asqjs5VHkvog61I83INUPQaSHNJ5plQ7/view
+
 Если в папке главный js-файл назван "index" - достаточно указать папку
 `const productsOperations = require("./methods");`
 Если в папке главный js-файл назван как-то иначе - прописываем папка/файл
