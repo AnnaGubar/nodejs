@@ -2,10 +2,10 @@
 
 ### конспект https://drive.google.com/file/d/1Asqjs5VHkvog61I83INUPQaSHNJ5plQ7/view
 
-Если в папке главный js-файл назван "index" - достаточно указать папку
-`const productsOperations = require("./methods");`
-Если в папке главный js-файл назван как-то иначе - прописываем папка/файл
-`const productsOperations = require("./methods/methods");`
+- Если в папке главный js-файл назван "index" - достаточно указать папку
+  `const productsOperations = require("./methods");`
+- Если в папке главный js-файл назван как-то иначе - прописываем папка/файл
+  `const productsOperations = require("./methods/methods");`
 
 _Самовызывающаяся функция_
 `(async () => { await invokeAction(argv)})();`
@@ -14,12 +14,12 @@ _Абсолютный путь к папке_
 `console.log(__dirname)`
 
 _Абсолютный путь к файлу_
-`const path = require("path");
- const filePath = path.join(__dirname, "имя_файла");`
+`const path = require("path"); const filePath = path.join(__dirname, "имя_файла");`
 
 При работе с текстовым файлом достаточно указывать кодировку _"utf-8"_, но при работе с json-файлом нужно использовать метод _JSON.parse_(data)
 
 ### папка json
+
 - `products.json` - data
 - `index.js` - Api (вызов методов)
 - `file-path.js` - доступ к данным products.json
@@ -29,7 +29,18 @@ _Абсолютный путь к файлу_
 ⌨ `node json`
 Последовательность работы файлов:
 первыми получаем 1. и 2. из-за выполнения команд require
+
 1. methods/methods.js - require()
 2. file-path.js - require()
 3. index.js - вызов метода
-4. _getAll.js - метод
+4. \_getAll.js - метод
+
+### папка colors
+
+Создание консольного приложения _commander_.
+
+- _colors_ - модуль цвета для сообщений в консоли
+- _readline_ - интерактивный ввод в консоли по типу вопрос-ответ
+  - `rl.question('вопрос')` - общение консоли типа prompt
+  - `rl.close()` - остановить общение
+  - `rl.pause()` - можем поставить разговор на паузу (заблокировать ввод)
