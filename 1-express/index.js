@@ -1,4 +1,4 @@
-// ⌨ node 1-express-get
+// ⌨ node 1-express
 
 const express = require("express");
 

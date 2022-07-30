@@ -1,4 +1,4 @@
-// ⌨ node 2-express-get-json
+// ⌨ node 2-express-get
 
 const express = require("express");
 
@@ -13,6 +13,8 @@ app.get("/products", (req, res) => {
   // res.json(products); // для отправки данных
   // res.send(products); // для отправки разметки
   // res.render("products", {name: "iPhone"} ); // для сложной разметки
+  // "products"- путь к шаблону
+  // {name: "iPhone"} - передаваемые в шаблон данные.
 
   // res.json({
   //     status: "success",

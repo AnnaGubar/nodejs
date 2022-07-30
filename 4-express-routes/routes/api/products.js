@@ -4,6 +4,7 @@ const {v4} = require("uuid");
 const products = require("../../data/products");
 
 const router = express.Router();
+
 /*
 1. Получить все товары.
 2. Получить один товар по id.
@@ -11,6 +12,7 @@ const router = express.Router();
 4. Обновить товар по id.
 5. Удалить товар по id.
 */
+
 // GET /api/products
 router.get("/", (req, res)=> {
     res.json({
@@ -23,8 +25,11 @@ router.get("/", (req, res)=> {
 });
 
 router.get("/:id", (req, res)=> {
+    //* req.params - динамические части маршрута
     const {id} = req.params;
     const result = products.find(item => item._id === id);
+
+    // если id не верный
     if(!result){
         res.status(404).json({
             status: "error",
@@ -32,6 +37,8 @@ router.get("/:id", (req, res)=> {
             message: `Product with id=${id} not found`
         })
     }
+
+    // если id верный
     res.json({
         status: "success",
         code: 200,
@@ -40,10 +47,13 @@ router.get("/:id", (req, res)=> {
         }
     })
 })
+
 // POST /api/products
 router.post("/", (req, res)=> {
+    //* req.body - то что ввели из фронтэнда 
     const newProduct = {...req.body, id: v4()};
     products.push(newProduct);
+
     res.status(201).json({
         status: "success",
         code: 201,
