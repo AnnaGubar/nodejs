@@ -1,6 +1,9 @@
-1. `npm init -y` - инициализация проекта
-2. `npm i -D nodemon` - установка необходимых пакетов 
-3. создание _gitignore_ -> `node_modules/`
-4. scripts: test/start/dev
+### Команди:
 
-запуск - `node index`
+- `npm start` &mdash; старт сервера в режимі production
+- `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
+- `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
+- `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+
+### Файлы
+`server.js` - запуск сервера
