@@ -16,9 +16,9 @@
 
 [Проблемы с CORS когда бекенд задеплоен на удаленный сервер](./slides/fullstack-developer-cors-problem-2.jpg)
 
-### Конспект https://drive.google.com/file/d/1MBzcy2dQqwT7QQC_kj0QmMkegXXezoBr/view
+_Конспект_ https://drive.google.com/file/d/1MBzcy2dQqwT7QQC_kj0QmMkegXXezoBr/view
 
-# Пакеты для установки
+### Пакеты для установки
 `npm i express`
 `npm i moment`
 `npm i cors`
@@ -28,7 +28,6 @@
 - Фронтенд должен ориентироваться не на данные в ответе, а на код статуса ответа.
 - Express требует указания в каком формате приходит тело запроса (POST) - `app.use(express.json())`
 
-`
 200-299 - обработка ответа прошла успешно
   200 - успешная обработка
   201 - успешно создан (в ответ на POST-запрос)
@@ -45,4 +44,3 @@
   404 - такого не существует (либо адреса, либо id)
 
 500-599 - ошибка сервера
-`
