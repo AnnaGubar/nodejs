@@ -16,3 +16,5 @@ get -> find (есть опции поиска)
 getById -> findOne/findById
 put/patch -> findByIdAndUpdate
 delete -> findByIdAndRemove
+
+new Schema -> параметр `unique: true` - работает корректно только при дополнительной настройке mongoDB Compass

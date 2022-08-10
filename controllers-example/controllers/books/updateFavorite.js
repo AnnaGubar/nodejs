@@ -13,6 +13,6 @@ const updateFavorite = async (req, res) => {
         throw createError(404);
     }
     res.json(result);
-}
+} 
 
 module.exports = updateFavorite;

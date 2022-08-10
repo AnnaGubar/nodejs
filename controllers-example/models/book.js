@@ -5,7 +5,13 @@ const bookSchema = new Schema({
     title: {
         type: String,
         required: true,
+        // required: [true, 'Nickname is required'],
+        // minlength: 2,
+        // maxlength: 10,
+        // min: 0.01,
+        // min: [0.01, "price must be higher than 0.01"],
     },
+    // address: [String], // тип - массив строк
     author: {
         type: String,
         required: true,
