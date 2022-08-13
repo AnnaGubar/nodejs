@@ -1,8 +1,12 @@
 const bcrypt = require("bcryptjs"); // хеширование
 
+const jwt = require("jsonwebtoken"); // токен
+const {SECRET_KEY} = process.env;
+
 const {basedir} = global;
 const {User, schemas} = require(`${basedir}/models/user`);
 const {createError} = require(`${basedir}/helpers`);
+
 
 const login = async (req, res) => {
     // валидируем полученные данные
@@ -25,8 +29,14 @@ const login = async (req, res) => {
     if(!comparePassword) {
         throw createError(401, "Password wrong");
     }
+
     // если да то создаем токен входа
-    const token = "hfsfg.asdsdgsfg.2224eh";
+    const payload = {
+        id: user._id
+    }
+    const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "24h"});
+    // перед тем как отправить токен на бекенд - сохраняем
+    await User.findByIdAndUpdate(user._id, {token})
 
     res.json({
         token,

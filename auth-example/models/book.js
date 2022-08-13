@@ -19,12 +19,16 @@ const bookSchema = new Schema({
         enum: ["fantastic", "love"],
         required: true,
     },
-    isbn: {
-        type: String,
-        match: /[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}/,
-        required: true,
-        unique: true,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
     }
+    // isbn: {
+    //     type: String,
+    //     match: /[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}/,
+    //     required: true,
+    //     unique: true,
+    // }
 }, {versionKey: false, timestamps: true})
 
 const addSchema = Joi.object({
@@ -32,7 +36,7 @@ const addSchema = Joi.object({
     author: Joi.string().required(),
     favorite: Joi.boolean(),
     genre: Joi.string().valueOf("fantastic", "love").required(),
-    isbn: Joi.string().pattern(/[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}/).required()
+    // isbn: Joi.string().pattern(/[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}/).required()
 })
 
 const updateFavoriteSchema = Joi.object({
