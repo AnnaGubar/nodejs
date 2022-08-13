@@ -1,5 +1,5 @@
 ### Регестрация/Авторизация
-
+_конспект_ https://drive.google.com/file/d/1ksRA6Au0Wy1IMKJ5zE0U4aIXABe4F-1x/view
 
 # Токен JWT-token `npm i jsonwebtoken`
 *JWT.sign*: 
@@ -80,14 +80,14 @@ app.use("/api/auth", authRouter);
 12. поле owner и его id - не информативно для фронтенда, метод _populate_ позволяет взять любую необходимую инфу связанной коллекции
 `.populate("owner", "name email");`
 
-13. если у авториз. пользователя истек срок токена, нужно брать новый
+13. _current_ если у авториз. пользователя истек срок токена, нужно брать новый
  - routes/api/auth.js сперва проверить авторизацию, потом получение нового токена
    `router.get("/current",auth, ctrlWrapper(ctrl.getCurrent));`
  
  - controllers/auth -> getCurrent.js
    если пользователь не авториз. будет ошибка с auth(авторизация), если авториз. - getCurrent получит данные про пользователя с auth(авторизация)
 
-14. logout - удаление токена -> чтобы удалить, нужно сперва сохранить
+14. _logout_ - удаление токена -> чтобы удалить, нужно сперва сохранить
  - models/user.js -> `token: { type: String }`
 
  - controllers/auth/login.js `await User.findByIdAndUpdate(user._id, {token})`
@@ -100,3 +100,4 @@ app.use("/api/auth", authRouter);
 15. _пагинация_ getAll.js
  - получаем параметры запроса - `const {page = 1, limit = 20} = req.query`
  - высчитываем с какой книги выдать результат - `const skip = (page - 1) * limit;`
+ - добавляем к поиску доп. настройки`{skip, limit: Number(limit)}`
