@@ -1,4 +1,5 @@
-### Работа с файлами `npm i multer`
+### Работа с файлами 
+`npm i multer`обрабатывает только *multipart/form-data*
 
 multer-example -> index.html загрузка файла `type="file"`
 
@@ -28,5 +29,7 @@ multer-example -> index.html загрузка файла `type="file"`
   d) перемещаем
   e) путь авы для БД ("avatars"+имя_авы)
   f) перезаписываем путь авы в БД
+
+файл *.gitkeep* сохраняет папку на гите
 
 

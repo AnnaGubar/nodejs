@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public")); // раздает файлы с папки "public"  - можно увидеть в html-странице
+app.use(express.static("public")); // раздает файлы с папки "public" (можно увидеть в html-странице)
 
 //* настраивание multer как сохранять файл
 
@@ -17,9 +17,12 @@ const tempDir = path.join(__dirname, "temp");
 
 const multerConfig = multer.diskStorage({
   destination: tempDir, // где сохранять
+  // под каким именем сохранять
   filename: (req, file, cb) => {
-    // под каким именем сохранять
     cb(null, file.originalname);
+  },
+  limits: {
+    fileSize: 2048, // загружать не больше чем 2мб
   },
 });
 
@@ -44,7 +47,7 @@ app.post("/api/book", upload.single("cover"), async (req, res) => {
     //   await fs.rename("./temp/cover.jpg", "./public/books/cover.jpg"); // перемещает файл
     await fs.rename(tempPath, uploadPath); // ⬆ аналог
 
-    const cover = path.join("books", originalname); // путь к файлу - "books\\cover.jpg"
+    const cover = path.join("books", originalname); // путь к файлу - " books\\cover.jpg"
 
     const newBook = {
       name: req.body.name,
@@ -62,11 +65,5 @@ app.post("/api/book", upload.single("cover"), async (req, res) => {
 app.get("/api/books", (req, res) => {
   res.json(books);
 });
-
-
-// upload.fields([{name: "cover", maxCount: 2}, {name: "side-cover", maxCount: 2}])
-// upload.array("cover", 8)
-
-
 
 app.listen(3000);
