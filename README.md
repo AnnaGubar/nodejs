@@ -1,35 +1,37 @@
-### Работа с файлами 
-`npm i multer`обрабатывает только *multipart/form-data*
+### Работа с email `npm i @sendgrid/mail`
 
-multer-example -> index.html загрузка файла `type="file"`
+*папка sendgrid*
+1. Регистрация на `sendgrid.com` (важно сгенерировать api key и сохранить его) Settings -> API Keys
+2. Верифицировать адрес отправителя Settings -> Sender Authentication
+3. app.js - общая реализация sendgrid
+4. helpers -> sendEmail - для многоразоваого использования
 
-`upload.single("cover")` - взять один файл (single) из поля "cover"
-`upload.array("hello", 8)` - взять несколько файлов (максимально 8) из поля "hello"
-`upload.fields([{"cover", 2},{"hello", 3},{"pic", 8}])` - взять несколько файлов из нескольких полей
+*папка nodemailer* `npm i nodemailer` - почтовый сервер
+1. app.js - необходимо настроить хост (meta.ua)
+  - регистрация
+  - сохранить пароль в файле .env как META_PASSWORD
+  - meta.ua -> Налаштування -> Налаштування POP3/SMTP сервера -> Дозволити доступ за протоколом POP3/SMTP
 
-`npm i cloudinary`
+Ошибку "Error: Message failed: 550 Suspicion of spam" не решаем.
 
-# auth-example добавление сохранения файлов
-если человек не загрузил аватар нужно дать рандомный `npm i gravatar`
+*папка auth-example*
+1. helpers -> sendEmail.js
+2. models/user - добавляем два поля
+  - `verify` - после регистрации (человек еще не подтвердил свою почту)
+  - `verificationToken` - то что отправляем на почту пользователю
+3. controllers/auth/register.js `npm i nanoid@3.3.4`
+  - импортируем sendEmail
+  - создаем verificationToken `const verificationToken = nanoid();`
+  - добавляем в запрос `User.create` к БД 
+  - создаем `email` для отправки при регистрации
+  - отправление созданного письма `await sendEmail(mail);`
+5. controllers/auth -> `verifyEmail.js` - обработчик верификации почты
+6. создаем путь для верификации почты `"/verify/:verificationToken"` и добавляем `ctrl.verifyEmail`
+7. controllers/auth/login.js -> мы не должны выдавать токен если пользователь не подтвердил почту ( не пройдена verifyEmail.js) `if(!user.verify){createError(401, "Email not verify")}`
+8. создаем путь для возможности повторно отправить письмо для верификации `"/verify"`+ `ctrl.resendVerifyEmail`
+9. controllers/auth -> `resendVerifyEmail.js` 
+10. models/user -> создаем схему для валидации почты 
+`const emailSchema = Joi.object({email: Joi.string().pattern(emailRegexp).required()})`
 
-1. создание папок temp и public/avatars
-2. app.js -> `app.use(express.static("public"))`
-3. models/user.js добавляем поле `avatarURL` с настройками
-4. controllers/auth/registration.js создание рандомного аватара
-`const avatarURL = gravatar.url(email);`
-5. routes/api/auth.js создаем новый маршрут `"/avatars"`
-`router.patch("/avatars", auth, upload.single("avatar"), ctrlWrapper(ctrl.setAvatar));`
-  - создаем новый маршрут `"/avatars"`
-  - `upload.single("avatar")`
-6. middlewares -> upload.js - считывает данные которые приходят в формате form-data и передают контроллеру на обработку
-7. controllers/auth -> setAvatar.js заменяет рандомную аву на загруженную
-  a) находим путь постоянного хранения авы
-  b) находим путь временного хранения авы
-  c) создаем путь авы в папке "avatars" (a+имя_авы)
-  d) перемещаем
-  e) путь авы для БД ("avatars"+имя_авы)
-  f) перезаписываем путь авы в БД
-
-файл *.gitkeep* сохраняет папку на гите
 
 
