@@ -47,6 +47,7 @@
 
         ws.onmessage = ({data}) => {
             const {name, message} = JSON.parse(data);
+
             chat.insertAdjacentHTML("beforeend", `
             <p>
              <span class="name">${name}:</span>
@@ -57,26 +58,33 @@
         const userNameForm = document.getElementById("user-name-form");
         userNameForm.addEventListener("submit", function(e){
             e.preventDefault();
+
             userName = this.elements.userName.value;
+
             this.remove();
         });
 
         const chatForm = document.getElementById("chat-form");
         chatForm.addEventListener("submit", function(e){
             e.preventDefault();
+
             const message = this.elements.message.value;
+
             chat.insertAdjacentHTML("beforeend", `
             <p>
              <span class="name">${userName}:</span>
              <span class="you-chat-message">${message}</span>
             </p>`);
+
             const data = {
                 name: userName,
                 message
             };
+
             ws.send(JSON.stringify(data));
+
             this.reset();
-        })
+         })
 
     </script>
 </body>

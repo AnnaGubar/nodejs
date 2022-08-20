@@ -14,9 +14,14 @@
             // console.log("Успешное подключение");
         }
 
+        // обработка сообщения с бекенда
         ws.onmessage = (e)=> {
             console.log(e.data);
         }
+
+        setTimeout(()=>{
+            ws.send("This mesage is from frontend")
+        },5000)
 
     </script>
 </body>
